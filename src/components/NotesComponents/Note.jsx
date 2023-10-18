@@ -1,14 +1,14 @@
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-function Note() {
+function Note({note,deleteNote}) {
   return (
-    <div className="note">
-        <div>hello</div>
+    <div className="note" >
+        <div>{note.text}</div>
       <div className="note__footer">
         <DeleteForeverIcon
           className="note__delete"
           aria-hidden="true"
-        //   onclick={}
+          onClick={()=>deleteNote(note.id)}
         ></DeleteForeverIcon>
       </div>
     </div>

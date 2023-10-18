@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import CreateNote from "./CreateNote";
 import Note from "./Note";
-import { v4 as uuid } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 function Notes() {
-  // eslint-disable-next-line
   const [notes, setNotes] = useState([]);
-  // eslint-disable-next-line
   const [loading, setLoading] = useState(true);
   const [inputText, setInputText] = useState("");
 
@@ -20,7 +18,7 @@ function Notes() {
     setNotes((prevState) => [
       ...prevState,
       {
-        id: uuid,
+        id: uuidv4(),
         text: inputText,
       },
     ]);
@@ -28,13 +26,35 @@ function Notes() {
   };
 
   useEffect(() => {
-    console.log("notes", notes);
-    localStorage.setItem('Notes',JSON.stringify(notes))
-  }, [notes]); //componetDidMount+componentDidUpdate
+    const data = JSON.parse(localStorage.getItem("Notes"));
+    if (Array.isArray(data) && data.length > 0) {
+      setNotes(data);
+    }
+    setLoading(false);
+  }, []);
+
+  const deleteNote = (id) => {
+    const filterNote = notes.filter((note) => note.id !== id);
+    setNotes(filterNote);
+  };
+
+  useEffect(() => {
+    if (!loading) {
+      console.log(notes);
+      localStorage.setItem("Notes", JSON.stringify(notes));
+    }
+  }, [notes, loading]); //componetDidMount+componentDidUpdate
+
+  if (loading) {
+    return <div>loading...</div>;
+  }
 
   return (
     <div className="notes">
-      <Note />
+      {notes.length &&
+        notes.map((note) => (
+          <Note key={note.id} note={note} deleteNote={deleteNote} />
+        ))}
       <CreateNote
         textHandler={textHandler}
         saveHandler={saveHandler}
