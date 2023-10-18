@@ -1,8 +1,9 @@
 import LinearProgress from "@mui/material/LinearProgress";
-
-function CreateNote() {
+// eslint-disable-next-line
+function CreateNote({textHandler,saveHandler,inputText}) {
   const charLimit = 100;
-  const charLeft = 50;
+  // eslint-disable-next-line
+  const charLeft = charLimit-inputText.length;
   return (
     <div className="note">
       <textarea
@@ -12,11 +13,12 @@ function CreateNote() {
         rows="6"
         maxLength={charLimit}
         placeholder="Type..."
-        value=""
+        value={inputText}
+        onChange={textHandler}
       ></textarea>
       <div className="note__footer">
         <span className="label">{charLeft} left</span>
-        <button className="note__save">Save</button>
+        <button className="note__save" onClick={saveHandler}>Save</button>
       </div>
       <LinearProgress variant="determinate" value={charLeft}/>
     </div>

@@ -8,7 +8,7 @@ function Note() {
         <DeleteForeverIcon
           className="note__delete"
           aria-hidden="true"
-          onclick=''
+        //   onclick={}
         ></DeleteForeverIcon>
       </div>
     </div>
