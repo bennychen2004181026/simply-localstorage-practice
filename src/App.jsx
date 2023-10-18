@@ -1,12 +1,17 @@
 // import { useState } from 'react'
+import './index.css'
 import './components/css/App.css'
+import './components/css/Notes.css'
+import Header from './components/NotesComponents/Header.jsx'
+import Notes from './components/NotesComponents/Notes'
 
 function App() {
 
   return (
     <>
-
-      <h1>Notes</h1>
+ 
+      <Header />
+      <Notes />
 
       
     </>
