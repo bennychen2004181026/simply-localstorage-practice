@@ -51,7 +51,7 @@ function Notes() {
 
   return (
     <div className="notes">
-      {notes.length &&
+      {notes > 0 &&
         notes.map((note) => (
           <Note key={note.id} note={note} deleteNote={deleteNote} />
         ))}
